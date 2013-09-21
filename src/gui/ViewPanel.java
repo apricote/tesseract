@@ -1,12 +1,10 @@
 package gui;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import logic.entities.Camera;
-import logic.entities.Punkt;
 
 public class ViewPanel extends JPanel {
 	/**
@@ -52,13 +50,14 @@ public class ViewPanel extends JPanel {
 		super.paintComponent(g);
 		g.fillOval(getWidth()/2-6, getHeight()-75-6, 2*6, 2*6);
 		
-		ArrayList<Punkt> drawings = getCamera().getDrawings();
+		getCamera().draw(g, getHeight(), getWidth());
+		/*ArrayList<Punkt> drawings = getCamera().getDrawings();
 		System.out.println(drawings.size());
 		for(Punkt drawing : drawings) {
 			int tempX = (int) Math.round(drawing.getxAtm());
 			int tempY = (int) Math.round(drawing.getyAtm());
 			g.fillOval(tempX * 10 - 3 + 100, tempY * 10 - 3 + 100, 2 * 3, 2 * 3); // TODO Rework Args x and y, so the middle is the middle of the Panel
-		}
+		}*/
 		
 		
 	}

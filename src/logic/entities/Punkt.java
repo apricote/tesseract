@@ -134,8 +134,9 @@ public class Punkt {
 		double cos = Math.cos(getRad());
 		double sin = Math.sin(getRad());
 
-		double[][] xy = { { cos, -sin, 0 }, { sin, cos, 0 }, { 0, 0, 1 },
-				{ 0, 0, 0 } };
+		double[][] xy = { { cos, -sin, 0 }, { sin, cos, 0 }, { 0, 0, 1 }, { 0, 0, 0 } };
+		double[][] xz = { { cos, 0, sin }, { 0, 1, 0 }, { -sin, 0, cos }, { 0, 0, 0 } };
+		double[][] yz = { { 1, 0, 0 }, { 0, cos, -sin }, { 0, sin, cos }, { 0, 0, 0 } };
 
 		double[] cord = { getX(), getY(), getZ() };
 		double[] cordAtm = { 0, 0, 0 };
@@ -148,6 +149,23 @@ public class Punkt {
 			}
 			cordAtm[i] = temp;
 		}
+		
+		for (int i = 0; i < 3; i++) {
+			double temp = 0;
+			for (int j = 0; j < 3; j++) {
+				temp = temp + xz[i][j] * cordAtm[j];
+			}
+			cord[i] = temp;
+		}
+		
+		for (int i = 0; i < 3; i++) {
+			double temp = 0;
+			for (int j = 0; j < 3; j++) {
+				temp = temp + yz[i][j] * cord[j];
+			}
+			cordAtm[i] = temp;
+		}
+		
 
 		setxAtm(cordAtm[0]);
 		setyAtm(cordAtm[1]);

@@ -57,7 +57,7 @@ public class Test {
 		
 		ArrayList<Punkt> punkte = cube.getPunkte();
 		for(Punkt punkt : punkte){ 
-			punkt.setRad(Math.PI/4); // A quarter Turn
+			punkt.setRad(Math.PI/3); // A quarter Turn
 			punkt.updateNew();
 		}
 		
