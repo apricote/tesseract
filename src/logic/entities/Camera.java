@@ -10,10 +10,9 @@ import java.util.ArrayList;
  *
  */
 public class Camera extends Punkt {
-	// TODO IMPLEMENT CAMERA
 	private double x;
 	private double y;
-	private ArrayList<Cube> cubes;
+	private ArrayList<MultipointObject> multipointObjects;
 
 	public void setX(double x) {
 		this.x = x;
@@ -23,18 +22,18 @@ public class Camera extends Punkt {
 		this.y = y;
 	}
 
-	public ArrayList<Cube> getCubes() {
-		return cubes;
+	public ArrayList<MultipointObject> getMultipointObjects() {
+		return multipointObjects;
 	}
 
-	public void setCubes(ArrayList<Cube> cubes) {
-		this.cubes = cubes;
+	public void setMultipointObjects(ArrayList<MultipointObject> multipointObjects) {
+		this.multipointObjects = multipointObjects;
 	}
 
-	public Camera(double x, double y, ArrayList<Cube> cubes) {
+	public Camera(double x, double y, ArrayList<MultipointObject> multipointObjects) {
 		setX(x);
 		setY(y);
-		setCubes(cubes);
+		setMultipointObjects(multipointObjects);
 	}
 
 	public ArrayList<Punkt> getDrawings() {
@@ -43,9 +42,9 @@ public class Camera extends Punkt {
 
 		int i = 0;
 
-		for (Cube cube : getCubes()) {
+		for (MultipointObject multipointObject : getMultipointObjects()) {
 
-			ArrayList<Punkt> punkte = cube.getPunkte();
+			ArrayList<Punkt> punkte = multipointObject.getPunkte();
 
 			for (Punkt punkt : punkte) {
 
@@ -59,8 +58,8 @@ public class Camera extends Punkt {
 
 	public void draw(Graphics g, int height, int width) {
 
-		for (Cube cube : getCubes()) {
-			ArrayList<Punkt> punkte = cube.getPunkte();
+		for (MultipointObject multipointObject : getMultipointObjects()) {
+			ArrayList<Punkt> punkte = multipointObject.getPunkte();
 
 			for (Punkt punkt : punkte) {
 
@@ -72,16 +71,15 @@ public class Camera extends Punkt {
 				g.fillOval(tempX, tempY, 2 * 3, 2 * 3);
 			}
 			
-			int[][] connectPoint = {{0,1},{0,2},{0,4},{1,3},{1,5},{2,3},{2,6},{3,7},{4,5},{4,6},{5,7},{6,7}};
+			int[][] connectedVertices = multipointObject.getConnectedVertices();
+			System.out.println(connectedVertices);
+			//int[][] connectedPoints = {{0,1},{0,2},{0,4},{1,3},{1,5},{2,3},{2,6},{3,7},{4,5},{4,6},{5,7},{6,7}};
 			
-			System.out.println(connectPoint.length);
-			
-			for(int i=0; i < connectPoint.length; i++){
-				System.out.println(i);
-				int x1 = width / 2 + punkte.get(connectPoint[i][0]).getXInt() * 10;
-				int y1 = height / 2 + punkte.get(connectPoint[i][0]).getYInt() * 10;
-				int x2 = width / 2 + punkte.get(connectPoint[i][1]).getXInt() * 10;
-				int y2 = height / 2 + punkte.get(connectPoint[i][1]).getYInt() * 10;
+			for(int i=0; i < connectedVertices.length; i++){
+				int x1 = width / 2 + punkte.get(connectedVertices[i][0]).getXInt() * 10;
+				int y1 = height / 2 + punkte.get(connectedVertices[i][0]).getYInt() * 10;
+				int x2 = width / 2 + punkte.get(connectedVertices[i][1]).getXInt() * 10;
+				int y2 = height / 2 + punkte.get(connectedVertices[i][1]).getYInt() * 10;
 				g.drawLine(x1, y1, x2, y2);
 			}
 		}
