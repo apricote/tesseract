@@ -19,9 +19,17 @@ public class Punkt {
 	public double getX() {
 		return x;
 	}
+	
+	public int getXInt() {
+		return (int) Math.round(this.getxAtm());
+	}
 
 	public double getY() {
 		return y;
+	}
+	
+	public int getYInt() {
+		return (int) Math.round(this.getyAtm());
 	}
 
 	public double getZ() {
