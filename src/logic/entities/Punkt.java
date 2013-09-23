@@ -13,13 +13,17 @@ public class Punkt {
 	private double y;
 	private double zAtm;
 	private double z;
-
+	
 	private double rad;
-
+	
 	public double getX() {
 		return x;
 	}
 	
+	/**
+	 * Returns the rounded xAtm
+	 * @return Math.round(xAtm)
+	 */
 	public int getXInt() {
 		return (int) Math.round(this.getxAtm());
 	}
@@ -28,6 +32,11 @@ public class Punkt {
 		return y;
 	}
 	
+	
+	/**
+	 * Returns the rounded yAtm
+	 * @return Math.round(yAtm)
+	 */
 	public int getYInt() {
 		return (int) Math.round(this.getyAtm());
 	}

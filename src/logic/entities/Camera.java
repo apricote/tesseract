@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Eine Kamera die die Blickfeldberechnung übernimmt.<br />
  * Info: <a href="http://robertokoci.com/world-view-projection-matrix-unveiled/">http://robertokoci.com/world-view-projection-matrix-unveiled/</a>
- * @author Julian
+ * @author Julian Tölle
  *
  */
 public class Camera extends Punkt {
@@ -30,39 +30,31 @@ public class Camera extends Punkt {
 		this.multipointObjects = multipointObjects;
 	}
 
+	/**
+	 * Initiates a new Camera
+	 * @param x The x position of the Camera
+	 * @param y The y position of the Camera
+	 * @param multipointObjects The list of Objects to be drawn
+	 */
 	public Camera(double x, double y, ArrayList<MultipointObject> multipointObjects) {
 		setX(x);
 		setY(y);
 		setMultipointObjects(multipointObjects);
 	}
 
-	public ArrayList<Punkt> getDrawings() {
-
-		ArrayList<Punkt> drawings = new ArrayList<>();
-
-		int i = 0;
-
-		for (MultipointObject multipointObject : getMultipointObjects()) {
-
-			ArrayList<Punkt> punkte = multipointObject.getPunkte();
-
-			for (Punkt punkt : punkte) {
-
-				drawings.add(punkt);
-				System.out.println("No:" + i + "; x:" + punkt.getxAtm());
-				i++;
-			}
-		}
-		return drawings;
-	}
-
+	/**
+	 * Draws the Objects onto the <i>g</i>-Graphics Object<br>
+	 * <b>Future:</b> Calculates the perspective before drawing
+	 * @param g The Graphics object to be drawn onto
+	 * @param height The height of <i>g</i>
+	 * @param width The width of <i>g</i>
+	 */
 	public void draw(Graphics g, int height, int width) {
 
 		for (MultipointObject multipointObject : getMultipointObjects()) {
 			ArrayList<Punkt> punkte = multipointObject.getPunkte();
 
 			for (Punkt punkt : punkte) {
-
 				int tempX = (int) Math.round(punkt.getxAtm());
 				int tempY = (int) Math.round(punkt.getyAtm());
 				tempX = width / 2 + tempX * 10 - 3;
@@ -72,8 +64,6 @@ public class Camera extends Punkt {
 			}
 			
 			int[][] connectedVertices = multipointObject.getConnectedVertices();
-			System.out.println(connectedVertices);
-			//int[][] connectedPoints = {{0,1},{0,2},{0,4},{1,3},{1,5},{2,3},{2,6},{3,7},{4,5},{4,6},{5,7},{6,7}};
 			
 			for(int i=0; i < connectedVertices.length; i++){
 				int x1 = width / 2 + punkte.get(connectedVertices[i][0]).getXInt() * 10;
