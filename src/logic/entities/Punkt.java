@@ -1,5 +1,7 @@
 package logic.entities;
 
+import logic.MathHelp;
+
 /**
  * Ein Punkt in einer 3-Dimensionalen Umgebung
  * 
@@ -13,36 +15,52 @@ public class Punkt {
 	private double y;
 	private double zAtm;
 	private double z;
-	
+
 	private double rad;
-	
+
 	public double getX() {
 		return x;
 	}
-	
+
 	/**
-	 * Returns the rounded xAtm
+	 * Returns the rounded <i>xAtm</i><br />
+	 * Uses <i>MathHelp</i>
+	 * 
 	 * @return Math.round(xAtm)
+	 * @see logic.MathHelp
 	 */
-	public int getXInt() {
-		return (int) Math.round(this.getxAtm());
+	public int getXInt(int factor) {
+		return MathHelp.round(this.getxAtm(), factor);
 	}
 
 	public double getY() {
 		return y;
 	}
-	
-	
+
 	/**
-	 * Returns the rounded yAtm
+	 * Returns the rounded <i>yAtm</i><br />
+	 * Uses <i>MathHelp</i>
+	 * 
 	 * @return Math.round(yAtm)
+	 * @see logic.MathHelp
 	 */
-	public int getYInt() {
-		return (int) Math.round(this.getyAtm());
+	public int getYInt(int factor) {
+		return MathHelp.round(this.getyAtm(), factor);
 	}
 
 	public double getZ() {
 		return z;
+	}
+
+	/**
+	 * Returns the rounded <i>zAtm</i><br />
+	 * Uses <i>MathHelp</i>
+	 * 
+	 * @return Math.round(zAtm)
+	 * @see logic.MathHelp
+	 */
+	public int getZInt(int factor) {
+		return MathHelp.round(this.getzAtm(), factor);
 	}
 
 	public double getxAtm() {
@@ -151,9 +169,12 @@ public class Punkt {
 		double cos = Math.cos(getRad());
 		double sin = Math.sin(getRad());
 
-		double[][] xy = { { cos, -sin, 0 }, { sin, cos, 0 }, { 0, 0, 1 }, { 0, 0, 0 } };
-		double[][] xz = { { cos, 0, sin }, { 0, 1, 0 }, { -sin, 0, cos }, { 0, 0, 0 } };
-		double[][] yz = { { 1, 0, 0 }, { 0, cos, -sin }, { 0, sin, cos }, { 0, 0, 0 } };
+		double[][] xy = { { cos, -sin, 0 }, { sin, cos, 0 }, { 0, 0, 1 },
+				{ 0, 0, 0 } };
+		double[][] xz = { { cos, 0, sin }, { 0, 1, 0 }, { -sin, 0, cos },
+				{ 0, 0, 0 } };
+		double[][] yz = { { 1, 0, 0 }, { 0, cos, -sin }, { 0, sin, cos },
+				{ 0, 0, 0 } };
 
 		double[] cord = { getX(), getY(), getZ() };
 		double[] cordAtm = { 0, 0, 0 };
@@ -166,7 +187,7 @@ public class Punkt {
 			}
 			cordAtm[i] = temp;
 		}
-		
+
 		for (int i = 0; i < 3; i++) {
 			double temp = 0;
 			for (int j = 0; j < 3; j++) {
@@ -174,7 +195,7 @@ public class Punkt {
 			}
 			cord[i] = temp;
 		}
-		
+
 		for (int i = 0; i < 3; i++) {
 			double temp = 0;
 			for (int j = 0; j < 3; j++) {
@@ -182,7 +203,6 @@ public class Punkt {
 			}
 			cordAtm[i] = temp;
 		}
-		
 
 		setxAtm(cordAtm[0]);
 		setyAtm(cordAtm[1]);
