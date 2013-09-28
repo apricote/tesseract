@@ -4,15 +4,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- * Eine Kamera die die Blickfeldberechnung übernimmt.<br />
- * Info: <a
- * href="http://robertokoci.com/world-view-projection-matrix-unveiled/">
- * http://robertokoci.com/world-view-projection-matrix-unveiled/</a>
+ * The virtual camera for perspective projection.<br />
  * 
  * @author Julian Tölle
  * 
  */
-public class Camera extends Punkt {
+public class Camera extends Dot {
 	private double x;
 	private double y;
 	private double z;
@@ -61,7 +58,7 @@ public class Camera extends Punkt {
 
 	/**
 	 * Draws the Objects onto the <i>g</i>-Graphics Object<br>
-	 * <b>Future:</b> Calculates the perspective before drawing
+	 * <b>Future:</b> Calculates the Perspective perspective before drawing
 	 * 
 	 * @param g
 	 *            The Graphics object to be drawn onto
@@ -73,16 +70,14 @@ public class Camera extends Punkt {
 	public void draw(Graphics g, int height, int width) {
 
 		for (MultipointObject multipointObject : getMultipointObjects()) {
-			ArrayList<Punkt> punkte = multipointObject.getPunkte();
+			ArrayList<Dot> punkte = multipointObject.getDots();
 
-			for (Punkt punkt : punkte) {
-				int tempX = punkt.getXInt(10);
-				int tempY = punkt.getYInt(10);
-				// System.out.println(tempX + " : " + tempY);
-				// int tempZ = punkt.getZInt();
+			for (Dot dot : punkte) {
+				int tempX = dot.getXInt(10);
+				int tempY = dot.getYInt(10);
+
 				tempX = width / 2 + tempX - 3;
 				tempY = height / 2 + tempY - 3;
-				// System.out.println(tempX + " : " + tempY);
 
 				g.fillOval(tempX, tempY, 5, 5);
 			}

@@ -12,18 +12,18 @@ import java.util.ArrayList;
  * @author Julian Tölle
  * 
  */
-public abstract class MultipointObject extends Punkt {
+public abstract class MultipointObject extends Dot {
 
-	private ArrayList<Punkt> punkte = new ArrayList<Punkt>();
+	private ArrayList<Dot> dots = new ArrayList<Dot>();
 	private int[][] connectedVertices;
-	private static int VERTICES;
+	private int VERTICES;
 
-	public ArrayList<Punkt> getPunkte() {
-		return this.punkte;
+	public ArrayList<Dot> getDots() {
+		return this.dots;
 	}
 
-	public void setPunkte(ArrayList<Punkt> punkte) {
-		this.punkte = punkte;
+	public void setDots(ArrayList<Dot> dots) {
+		this.dots = dots;
 	}
 
 	public int[][] getConnectedVertices() {
@@ -65,12 +65,12 @@ public abstract class MultipointObject extends Punkt {
 	 *            The Center-y coordinate
 	 * @param z
 	 *            The Center-z coordinate
-	 * @param punkte
+	 * @param dots
+	 *            The dots that build the cube.
 	 */
-	public MultipointObject(double x, double y, double z,
-			ArrayList<Punkt> punkte) {
+	public MultipointObject(double x, double y, double z, ArrayList<Dot> dots) {
 		super(x, y, z);
-		this.setPunkte(punkte);
+		this.setDots(dots);
 	}
 
 	/**
@@ -80,9 +80,9 @@ public abstract class MultipointObject extends Punkt {
 	 *            Angle in Radiant
 	 */
 	public void rotate(double rad) {
-		for (Punkt punkt : this.getPunkte()) {
-			punkt.setRad(getRad() + rad);
-			punkt.updateNew();
+		for (Dot dot : this.getDots()) {
+			dot.setRad(dot.getRad() + rad);
+			dot.update();
 		}
 	}
 
