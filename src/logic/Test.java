@@ -1,50 +1,63 @@
 package logic;
 
-import java.util.ArrayList;
+import gui.FrameManager;
 
-import logic.entities.Punkt;
-import logic.entities.Tesseract;
+import java.util.ArrayList;
+import java.util.Date;
+
+import logic.entities.Camera;
+import logic.entities.Cube;
+import logic.entities.Dot;
+import logic.entities.MultipointObject;
 
 public class Test {
-
-	/**
-	 * @param args Keine Argumente
-	 */
 	public static void main(String[] args) {
-		ArrayList<Punkt> newPunkte = new ArrayList<>();
-		newPunkte.add(new Punkt(1,2,3,4));
-		newPunkte.add(new Punkt(2,2,3,4));
-		newPunkte.add(new Punkt(3,2,3,4));
-		newPunkte.add(new Punkt(4,2,3,4));
-		newPunkte.add(new Punkt(5,2,3,4));
-		newPunkte.add(new Punkt(6,2,3,4));
-		newPunkte.add(new Punkt(7,2,3,4));
-		newPunkte.add(new Punkt(8,2,3,4));
-		newPunkte.add(new Punkt(9,2,3,4));
-		newPunkte.add(new Punkt(10,2,3,4));
-		newPunkte.add(new Punkt(11,2,3,4));
-		newPunkte.add(new Punkt(12,2,3,4));
-		newPunkte.add(new Punkt(13,2,3,4));
-		newPunkte.add(new Punkt(14,2,3,4));
-		newPunkte.add(new Punkt(15,2,3,4));
-		newPunkte.add(new Punkt(16,2,3,4));
-		
-		Tesseract cube = new Tesseract(1,2,3,4, newPunkte);
-		
-		ArrayList<Punkt> punkte = cube.getPunkte();
-		
-		for(Punkt punkt : punkte){
-			punkt.setRad(Math.PI*2);
-			punkt.updateNew();
-		}
-		punkte = null;
-		punkte = cube.getPunkte();
+		ArrayList<Dot> newDots = new ArrayList<>();
+		newDots.add(new Dot(4, 4, 4));
+		newDots.add(new Dot(4, 4, -4));
+		newDots.add(new Dot(4, -4, 4));
+		newDots.add(new Dot(4, -4, -4));
+		newDots.add(new Dot(-4, 4, 4));
+		newDots.add(new Dot(-4, 4, -4));
+		newDots.add(new Dot(-4, -4, 4));
+		newDots.add(new Dot(-4, -4, -4));
 
-		int i = 0;
-		
-		for (Punkt punkt : punkte) {
-			i++;
-			System.out.println("Punkt " + i +"; x: " + punkt.getxAtm() +"; y: " + punkt.getyAtm());			
+		Cube cube = new Cube(0, 0, 0, newDots);
+
+		int[][] connectedVertices = { { 0, 1 }, { 0, 2 }, { 0, 4 }, { 1, 3 },
+				{ 1, 5 }, { 2, 3 }, { 2, 6 }, { 3, 7 }, { 4, 5 }, { 4, 6 },
+				{ 5, 7 }, { 6, 7 } };
+		cube.setConnectedVertices(connectedVertices);
+
+		ArrayList<MultipointObject> multipointObjects = new ArrayList<>();
+		multipointObjects.add(cube);
+
+		Camera leftCam = new Camera(0, 0, 5, multipointObjects);
+		Camera rightCam = new Camera(0, 0, 5, multipointObjects);
+		FrameManager fMng = new FrameManager(leftCam, rightCam);
+
+		// cube.rotate(Math.PI / 50);
+
+		Date date = new Date();
+		long millis = date.getTime();
+
+		while (true) {
+			date = new Date();
+			long newMillis = date.getTime();
+
+			if (newMillis - millis > 25) {
+				cube.rotate(Math.PI * 2 / 200);
+				millis = newMillis;
+				fMng.repaint();
+			}
+
+			try {
+				Thread.sleep(5, 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
 		}
+
 	}
 }

@@ -1,0 +1,18 @@
+A:Punkt(4, 4, 4);6;true;false
+B:Punkt(4, 4, -4);6;true;false
+C:Punkt(4, -4, 4);6;true;false
+D:Punkt(4, -4, -4);6;true;false
+E:Punkt(-4, 4, 4);6;true;false
+F:Punkt(-4, 4, -4);6;true;false
+G:Punkt(-4, -4, 4);6;true;false
+H:Punkt(-4, -4, -4);6;true;false
+Q:Quader(0, 0, -3, 6, 6, 6);3;true;false
+
+A2:Punkt(-3.9999999999999996, 4.0, 4.0);6;true;false
+B2:Punkt(-3.9999999999999996, 4.0, -4.0);6;true;false
+C2:Punkt(4.0, 3.9999999999999996, 4.0);6;true;false
+D2:Punkt(4.0, 3.9999999999999996, -4.0);6;true;false
+E2:Punkt(-4.0, -3.9999999999999996, 4.0);6;true;false
+F2:Punkt(-4.0, -3.9999999999999996, -4.0);6;true;false
+G2:Punkt(3.9999999999999996, -4.0, 4.0);6;true;false
+H2:Punkt(3.9999999999999996, -4.0, -4.0);6;true;false
