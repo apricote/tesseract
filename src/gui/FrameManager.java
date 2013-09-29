@@ -21,7 +21,7 @@ public class FrameManager {
 	 * Initiates a FrameManager with 2 Cameras for 3 Dimensional viewing.
 	 * 
 	 * @param leftCam
-	 *            The lef-eye Camera
+	 *            The left-eye Camera
 	 * @param rightCam
 	 *            The right-eye Camera
 	 */

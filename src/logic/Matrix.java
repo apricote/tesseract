@@ -1,5 +1,7 @@
 package logic;
 
+import exceptions.MatrixException;
+
 /**
  * A class for Matrices of doubles.
  * 
@@ -20,12 +22,13 @@ public class Matrix {
 	 * 
 	 * @param values
 	 *            The new values.
+	 * @throws MatrixException
 	 */
-	public void setValues(double[][] values) {
+	public void setValues(double[][] values) throws MatrixException {
 		if (values.length == getCol() && values[0].length == getRow()) {
 			this.values = values;
 		} else {
-			System.out.println("ERROR: VALUES DO NOT FIT IN MATRIX");
+			throw new MatrixException("setValues: Values do not fit in Matrix");
 		}
 	}
 
@@ -37,9 +40,14 @@ public class Matrix {
 	 * @param row
 	 *            Row of the location
 	 * @return Double at the location
+	 * @throws MatrixException
 	 */
-	public double getValue(int col, int row) {
-		return values[col][row];
+	public double getValue(int col, int row) throws MatrixException {
+		if (col <= getCol() && row <= getRow()) {
+			return values[col][row];
+		} else {
+			throw new MatrixException("getValue: Position is not in Matrix");
+		}
 	}
 
 	/**
@@ -51,9 +59,14 @@ public class Matrix {
 	 *            Row of the location
 	 * @param value
 	 *            Value to be set into that location
+	 * @throws MatrixException
 	 */
-	public void setValue(int col, int row, double value) {
-		this.values[col][row] = value;
+	public void setValue(int col, int row, double value) throws MatrixException {
+		if (col <= getCol() && row <= getRow()) {
+			this.values[col][row] = value;
+		} else {
+			throw new MatrixException("setValue: Position is not in Matrix");
+		}
 	}
 
 	public int getCol() {
@@ -96,6 +109,6 @@ public class Matrix {
 	public Matrix(double[][] values) {
 		setCol(values.length);
 		setRow(values[0].length);
-		setValues(values);
+		this.values = values;
 	}
 }

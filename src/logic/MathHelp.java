@@ -1,5 +1,7 @@
 package logic;
 
+import exceptions.MatrixException;
+
 /**
  * Abstract class with some useful Math functions
  * 
@@ -57,8 +59,9 @@ public abstract class MathHelp {
 	 * @param b
 	 *            Matrix b
 	 * @return Multiplied Matrix
+	 * @throws MatrixException
 	 */
-	public static Matrix MatMult(Matrix a, Matrix b) {
+	public static Matrix MatMult(Matrix a, Matrix b) throws MatrixException {
 		Matrix c = new Matrix(a.getCol(), b.getRow());
 
 		if (a.getRow() == b.getCol()) {
@@ -72,10 +75,8 @@ public abstract class MathHelp {
 				}
 			}
 		} else {
-			System.out.println("ERROR: MATRICES DID NOT MATCH");
-			return null;
+			throw new MatrixException("MatMult: Matrixes cannot be multiplied");
 		}
-
 		return c;
 	}
 }

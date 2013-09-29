@@ -2,6 +2,7 @@ package logic.entities;
 
 import logic.MathHelp;
 import logic.Matrix;
+import exceptions.MatrixException;
 
 /**
  * A dot in a three dimensional World
@@ -169,12 +170,16 @@ public class Dot {
 		double[][] cord = { { getX() }, { getY() }, { getZ() }, { 0 } };
 		Matrix cordMat = new Matrix(cord);
 
-		cordMat = MathHelp.MatMult(xyMat, cordMat);
-		cordMat = MathHelp.MatMult(xzMat, cordMat);
-		cordMat = MathHelp.MatMult(yzMat, cordMat);
+		try {
+			cordMat = MathHelp.MatMult(xyMat, cordMat);
+			cordMat = MathHelp.MatMult(xzMat, cordMat);
+			cordMat = MathHelp.MatMult(yzMat, cordMat);
 
-		setxAtm(cordMat.getValue(0, 0));
-		setyAtm(cordMat.getValue(1, 0));
-		setzAtm(cordMat.getValue(2, 0));
+			setxAtm(cordMat.getValue(0, 0));
+			setyAtm(cordMat.getValue(1, 0));
+			setzAtm(cordMat.getValue(2, 0));
+		} catch (MatrixException e) {
+			e.printStackTrace();
+		}
 	}
 }
