@@ -17,6 +17,8 @@ public class Dot {
 	private double y;
 	private double zAtm;
 	private double z;
+	private double wAtm;
+	private double w;
 
 	private double rad;
 
@@ -65,6 +67,21 @@ public class Dot {
 		return MathHelp.round(this.getzAtm(), factor);
 	}
 
+	public double getW() {
+		return w;
+	}
+
+	/**
+	 * Returns the rounded <i>wAtm</i><br />
+	 * Uses <i>MathHelp</i>
+	 * 
+	 * @return Math.round(wAtm)
+	 * @see logic.MathHelp
+	 */
+	public int getWInt(int factor) {
+		return MathHelp.round(this.getwAtm(), factor);
+	}
+
 	public double getxAtm() {
 		return xAtm;
 	}
@@ -87,6 +104,14 @@ public class Dot {
 
 	public void setzAtm(double z) {
 		this.zAtm = z;
+	}
+
+	public double getwAtm() {
+		return wAtm;
+	}
+
+	public void setwAtm(double w) {
+		this.wAtm = w;
 	}
 
 	public double getRad() {
@@ -112,28 +137,34 @@ public class Dot {
 	 *            The coordinate on the y-Axis.
 	 * @param z
 	 *            The coordinate on the z-Axis.
+	 * @param w
+	 *            The coordinate on the w-Axis.
 	 */
 
-	public Dot(double x, double y, double z) {
+	public Dot(double x, double y, double z, double w) {
 		this.xAtm = x;
 		this.yAtm = y;
 		this.zAtm = z;
+		this.wAtm = w;
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.w = w;
 	}
 
 	/**
-	 * Initiates a new Dot at (0|0|0)
+	 * Initiates a new Dot at (0|0|0|0)
 	 */
 
 	public Dot() {
 		this.xAtm = 0;
 		this.yAtm = 0;
 		this.zAtm = 0;
+		this.wAtm = 0;
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
+		this.w = 0;
 	}
 
 	/**
@@ -146,38 +177,52 @@ public class Dot {
 		this.x = this.x + v.getX();
 		this.y = this.y + v.getY();
 		this.z = this.z + v.getZ();
+		this.w = this.w + v.getW();
 	}
 
 	/**
-	 * Updates the current position of the Dot. (xAtm,yAtm,zAtm)
+	 * Updates the current position of the Dot. (xAtm,yAtm,zAtm,wAtm)
 	 */
 	public void update() {
 
 		double cos = Math.cos(getRad());
 		double sin = Math.sin(getRad());
 
-		double[][] xy = { { cos, -sin, 0, 0 }, { sin, cos, 0, 0 },
+		double[][] zw = { { cos, -sin, 0, 0 }, { sin, cos, 0, 0 },
 				{ 0, 0, 1, 0 }, { 0, 0, 0, 1 } };
-		double[][] xz = { { cos, 0, sin, 0 }, { 0, 1, 0, 0 },
+		double[][] yw = { { cos, 0, sin, 0 }, { 0, 1, 0, 0 },
 				{ -sin, 0, cos, 0 }, { 0, 0, 0, 1 } };
-		double[][] yz = { { 1, 0, 0, 0 }, { 0, cos, -sin, 0 },
+		double[][] xw = { { 1, 0, 0, 0 }, { 0, cos, -sin, 0 },
 				{ 0, sin, cos, 0 }, { 0, 0, 0, 1 } };
+		double[][] xy = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, cos, sin },
+				{ 0, 0, -sin, cos } };
+		double[][] xz = { { 1, 0, 0, 0 }, { 0, cos, 0, sin }, { 0, 0, 1, 0 },
+				{ 0, -sin, 0, cos } };
+		double[][] yz = { { cos, 0, 0, sin }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 },
+				{ -sin, 0, 0, cos } };
 
+		Matrix zwMat = new Matrix(zw);
+		Matrix ywMat = new Matrix(yw);
+		Matrix xwMat = new Matrix(xw);
 		Matrix xyMat = new Matrix(xy);
 		Matrix xzMat = new Matrix(xz);
 		Matrix yzMat = new Matrix(yz);
 
-		double[][] cord = { { getX() }, { getY() }, { getZ() }, { 0 } };
+		double[][] cord = { { getX() }, { getY() }, { getZ() }, { getW() } };
 		Matrix cordMat = new Matrix(cord);
 
 		try {
-			cordMat = MathHelp.MatMult(xyMat, cordMat);
-			cordMat = MathHelp.MatMult(xzMat, cordMat);
-			cordMat = MathHelp.MatMult(yzMat, cordMat);
+			cordMat = MathHelp.MatMult(zwMat, cordMat);
+			cordMat = MathHelp.MatMult(ywMat, cordMat);
+			cordMat = MathHelp.MatMult(xwMat, cordMat);
+			// cordMat = MathHelp.MatMult(xyMat, cordMat);
+			// cordMat = MathHelp.MatMult(xzMat, cordMat);
+			// cordMat = MathHelp.MatMult(yzMat, cordMat);
 
 			setxAtm(cordMat.getValue(0, 0));
 			setyAtm(cordMat.getValue(1, 0));
 			setzAtm(cordMat.getValue(2, 0));
+			setwAtm(cordMat.getValue(3, 0));
 		} catch (MatrixException e) {
 			e.printStackTrace();
 		}

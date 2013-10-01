@@ -13,6 +13,7 @@ public class Camera extends Dot {
 	private double x;
 	private double y;
 	private double z;
+	private double w;
 	private ArrayList<MultipointObject> multipointObjects;
 
 	public void setX(double x) {
@@ -25,6 +26,10 @@ public class Camera extends Dot {
 
 	public void setZ(double z) {
 		this.z = z;
+	}
+
+	public void setW(double w) {
+		this.w = w;
 	}
 
 	public ArrayList<MultipointObject> getMultipointObjects() {
@@ -45,14 +50,17 @@ public class Camera extends Dot {
 	 *            The y position of the Camera
 	 * @param z
 	 *            The z position of the Camera
+	 * @param The
+	 *            w position of the Camera
 	 * @param multipointObjects
 	 *            The list of Objects to be drawn
 	 */
-	public Camera(double x, double y, double z,
+	public Camera(double x, double y, double z, double w,
 			ArrayList<MultipointObject> multipointObjects) {
 		setX(x);
 		setY(y);
 		setZ(z);
+		setW(w);
 		setMultipointObjects(multipointObjects);
 	}
 
