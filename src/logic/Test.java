@@ -1,6 +1,6 @@
 package logic;
 
-import gui.FrameManager;
+import gui.TesseractFrame;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,7 +53,7 @@ public class Test {
 
 		Camera leftCam = new Camera(0, 0, 5, 0, multipointObjects);
 		Camera rightCam = new Camera(0, 0, 5, 0, multipointObjects);
-		FrameManager fMng = new FrameManager(leftCam, rightCam);
+		TesseractFrame fMng = new TesseractFrame(leftCam, rightCam);
 
 		// cube.rotate(Math.PI / 50);
 

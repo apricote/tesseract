@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -54,6 +55,7 @@ public class ViewPanel extends JPanel {
 		setWidth(w);
 		setHeight(h);
 		setCamera(cam);
+		setPreferredSize(new Dimension(w, h));
 	}
 
 	/**
