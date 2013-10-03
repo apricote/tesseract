@@ -20,7 +20,7 @@ public class Dot {
 	private double wAtm;
 	private double w;
 
-	private double rad;
+	private double[] angles = new double[6];
 
 	public double getX() {
 		return x;
@@ -114,18 +114,16 @@ public class Dot {
 		this.wAtm = w;
 	}
 
-	public double getRad() {
-		return rad;
+	public double[] getAngles() {
+		return angles;
 	}
 
-	/**
-	 * Reduces the Value of <i>this.rad</i> between 0 and 2 Math.PI (0° to 360°)
-	 * 
-	 * @param rad
-	 *            Angle in Radiant
-	 */
-	public void setRad(double rad) {
-		this.rad = rad % (Math.PI * 2.0);
+	public void setAngles(double[] angles) {
+		this.angles = angles; // TODO Exceptions
+	}
+
+	public void setAngle(int angle, double rad) {
+		this.angles[angle] = rad % (Math.PI * 2.0);
 	}
 
 	/**
@@ -178,6 +176,7 @@ public class Dot {
 		this.y = this.y + v.getY();
 		this.z = this.z + v.getZ();
 		this.w = this.w + v.getW();
+		update();
 	}
 
 	/**
@@ -185,21 +184,29 @@ public class Dot {
 	 */
 	public void update() {
 
-		double cos = Math.cos(getRad());
-		double sin = Math.sin(getRad());
+		// double cos = Math.cos(getRad());
+		// double sin = Math.sin(getRad());
 
-		double[][] zw = { { cos, -sin, 0, 0 }, { sin, cos, 0, 0 },
+		double[] cos = new double[6];
+		double[] sin = new double[6];
+
+		for (int i = 0; i < 6; i++) {
+			cos[i] = Math.cos(getAngles()[i]);
+			sin[i] = Math.sin(getAngles()[i]);
+		}
+
+		double[][] zw = { { cos[0], -sin[0], 0, 0 }, { sin[0], cos[0], 0, 0 },
 				{ 0, 0, 1, 0 }, { 0, 0, 0, 1 } };
-		double[][] yw = { { cos, 0, sin, 0 }, { 0, 1, 0, 0 },
-				{ -sin, 0, cos, 0 }, { 0, 0, 0, 1 } };
-		double[][] xw = { { 1, 0, 0, 0 }, { 0, cos, -sin, 0 },
-				{ 0, sin, cos, 0 }, { 0, 0, 0, 1 } };
-		double[][] xy = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, cos, sin },
-				{ 0, 0, -sin, cos } };
-		double[][] xz = { { 1, 0, 0, 0 }, { 0, cos, 0, sin }, { 0, 0, 1, 0 },
-				{ 0, -sin, 0, cos } };
-		double[][] yz = { { cos, 0, 0, sin }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 },
-				{ -sin, 0, 0, cos } };
+		double[][] yw = { { cos[1], 0, sin[1], 0 }, { 0, 1, 0, 0 },
+				{ -sin[1], 0, cos[1], 0 }, { 0, 0, 0, 1 } };
+		double[][] xw = { { 1, 0, 0, 0 }, { 0, cos[2], -sin[2], 0 },
+				{ 0, sin[2], cos[2], 0 }, { 0, 0, 0, 1 } };
+		double[][] xy = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 },
+				{ 0, 0, cos[3], sin[3] }, { 0, 0, -sin[3], cos[3] } };
+		double[][] xz = { { 1, 0, 0, 0 }, { 0, cos[4], 0, sin[4] },
+				{ 0, 0, 1, 0 }, { 0, -sin[4], 0, cos[4] } };
+		double[][] yz = { { cos[5], 0, 0, sin[5] }, { 0, 1, 0, 0 },
+				{ 0, 0, 1, 0 }, { -sin[5], 0, 0, cos[5] } };
 
 		Matrix zwMat = new Matrix(zw);
 		Matrix ywMat = new Matrix(yw);

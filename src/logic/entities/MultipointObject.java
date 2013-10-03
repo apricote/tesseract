@@ -86,7 +86,9 @@ public abstract class MultipointObject extends Dot {
 	 */
 	public void rotate(double rad) {
 		for (Dot dot : this.getDots()) {
-			dot.setRad(dot.getRad() + rad);
+			for (int i = 0; i < 6; i++) {
+				dot.setAngle(i, dot.getAngles()[i] + rad);
+			}
 			dot.update();
 		}
 	}
