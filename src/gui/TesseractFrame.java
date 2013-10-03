@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -32,29 +31,27 @@ public class TesseractFrame extends JFrame {
 
 	public TesseractFrame(Camera leftCam, Camera rightCam) {
 
-		masterPanel = new JPanel(new BorderLayout(10, 10));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(800, 600);
+		this.setLayout(new BorderLayout());
 
-		setSize(800, 600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		masterPanel = new JPanel();
+		leftPanel = new ViewPanel(400, 600, leftCam);
+		rightPanel = new ViewPanel(400, 600, rightCam);
 
-		leftPanel = new ViewPanel(this.getHeight(), this.getWidth() / 2,
-				leftCam);
-		rightPanel = new ViewPanel(this.getHeight(), this.getWidth() / 2,
-				rightCam);
+		masterPanel.setLayout(new GridLayout(1, 2));
+
 		masterPanel.add(leftPanel);
-		masterPanel.add(rightPanel, BorderLayout.EAST);
+		masterPanel.add(rightPanel);
 
-		this.getContentPane().add(masterPanel);
+		this.add(masterPanel);
 		this.setVisible(true);
-		this.pack();
 	}
 
 	@Override
 	public void repaint() {
-		leftPanel.setPreferredSize(new Dimension(this.getWidth() / 2, this
-				.getHeight()));
-		rightPanel.setPreferredSize(new Dimension(this.getWidth() / 2, this
-				.getHeight()));
+		leftPanel.setSize(masterPanel.getSize());
+		rightPanel.setSize(masterPanel.getSize());
 		super.repaint();
 	}
 }

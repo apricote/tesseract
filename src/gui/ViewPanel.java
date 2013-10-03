@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import logic.MathHelp;
 import logic.entities.Camera;
 
 /**
@@ -42,20 +43,31 @@ public class ViewPanel extends JPanel {
 	}
 
 	/**
+	 * Sets the height and width of the Panel to the Values of the dimension.<br />
+	 * Only half of Width is used.
+	 * 
+	 * @param dimension
+	 *            The new Dimension
+	 */
+	public void setSize(Dimension dimension) {
+		setHeight(MathHelp.round(dimension.getHeight()));
+		setWidth(MathHelp.round(dimension.getWidth() / 2));
+	}
+
+	/**
 	 * Initiates a new ViewPanel
 	 * 
-	 * @param h
-	 *            The height of the Window
 	 * @param w
 	 *            The width of the Window
+	 * @param h
+	 *            The height of the Window
 	 * @param cam
 	 *            The camera for the drawings
 	 */
-	public ViewPanel(int h, int w, Camera cam) {
+	public ViewPanel(int w, int h, Camera cam) {
 		setWidth(w);
 		setHeight(h);
 		setCamera(cam);
-		setPreferredSize(new Dimension(w, h));
 	}
 
 	/**
