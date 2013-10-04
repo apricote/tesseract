@@ -44,14 +44,14 @@ public class ViewPanel extends JPanel {
 
 	/**
 	 * Sets the height and width of the Panel to the Values of the dimension.<br />
-	 * Only half of Width is used.
+	 * Only a third of Width is used.
 	 * 
 	 * @param dimension
 	 *            The new Dimension
 	 */
 	public void setSize(Dimension dimension) {
 		setHeight(MathHelp.round(dimension.getHeight()));
-		setWidth(MathHelp.round(dimension.getWidth() / 2));
+		setWidth(MathHelp.round(dimension.getWidth() / 3));
 	}
 
 	/**

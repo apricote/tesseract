@@ -2,11 +2,13 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import logic.entities.Camera;
+import logic.entities.MultipointObject;
 
 /**
  * The TesseractFrame just keeps track of the GUI
@@ -16,9 +18,10 @@ import logic.entities.Camera;
  */
 public class TesseractFrame extends JFrame {
 
-	ViewPanel leftPanel;
-	ViewPanel rightPanel;
-	JPanel masterPanel;
+	private ViewPanel leftPanel;
+	private ViewPanel rightPanel;
+	private JPanel masterPanel;
+	private InfoPanel infoPanel;
 
 	/**
 	 * Initiates a TesseractFrame with 2 Cameras for 3 Dimensional viewing.
@@ -29,7 +32,8 @@ public class TesseractFrame extends JFrame {
 	 *            The right-eye Camera
 	 */
 
-	public TesseractFrame(Camera leftCam, Camera rightCam) {
+	public TesseractFrame(Camera leftCam, Camera rightCam,
+			ArrayList<MultipointObject> objects) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
@@ -38,11 +42,13 @@ public class TesseractFrame extends JFrame {
 		masterPanel = new JPanel();
 		leftPanel = new ViewPanel(400, 600, leftCam);
 		rightPanel = new ViewPanel(400, 600, rightCam);
+		infoPanel = new InfoPanel(objects);
 
-		masterPanel.setLayout(new GridLayout(1, 2));
+		masterPanel.setLayout(new GridLayout(1, 3));
 
 		masterPanel.add(leftPanel);
 		masterPanel.add(rightPanel);
+		masterPanel.add(infoPanel);
 
 		this.add(masterPanel);
 		this.setVisible(true);
@@ -52,6 +58,11 @@ public class TesseractFrame extends JFrame {
 	public void repaint() {
 		leftPanel.setSize(masterPanel.getSize());
 		rightPanel.setSize(masterPanel.getSize());
+		infoPanel.repaint();
 		super.repaint();
+	}
+
+	public InfoPanel getInfoPanel() {
+		return infoPanel;
 	}
 }

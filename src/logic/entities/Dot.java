@@ -124,6 +124,9 @@ public class Dot {
 
 	public void setAngle(int angle, double rad) {
 		this.angles[angle] = rad % (Math.PI * 2.0);
+		if (this.angles[angle] < 0) {
+			this.angles[angle] = (Math.PI * 2) - this.angles[angle];
+		}
 	}
 
 	/**
@@ -222,9 +225,9 @@ public class Dot {
 			cordMat = MathHelp.MatMult(zwMat, cordMat);
 			cordMat = MathHelp.MatMult(ywMat, cordMat);
 			cordMat = MathHelp.MatMult(xwMat, cordMat);
-			// cordMat = MathHelp.MatMult(xyMat, cordMat);
-			// cordMat = MathHelp.MatMult(xzMat, cordMat);
-			// cordMat = MathHelp.MatMult(yzMat, cordMat);
+			cordMat = MathHelp.MatMult(xyMat, cordMat);
+			cordMat = MathHelp.MatMult(xzMat, cordMat);
+			cordMat = MathHelp.MatMult(yzMat, cordMat);
 
 			setxAtm(cordMat.getValue(0, 0));
 			setyAtm(cordMat.getValue(1, 0));

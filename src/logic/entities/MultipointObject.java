@@ -93,4 +93,18 @@ public abstract class MultipointObject extends Dot {
 		}
 	}
 
+	/**
+	 * Sets the Radiant for every Vertices new and then updates it's position.
+	 * 
+	 * @param rad
+	 *            Angle in Radiant
+	 * @param axis
+	 *            Axis to be set
+	 */
+	public void rotate(double rad, int axis) {
+		for (Dot dot : this.getDots()) {
+			dot.setAngle(axis, dot.getAngles()[axis] + rad);
+			dot.update();
+		}
+	}
 }

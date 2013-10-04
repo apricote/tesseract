@@ -3,7 +3,6 @@ package logic;
 import gui.TesseractFrame;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import logic.entities.Camera;
 import logic.entities.Cube;
@@ -12,6 +11,8 @@ import logic.entities.MultipointObject;
 
 public class Test {
 	public static void main(String[] args) {
+		boolean autoturnEnabled = true;
+
 		ArrayList<Dot> newDots = new ArrayList<>();
 		newDots.add(new Dot(4, 4, 4, 4));
 		newDots.add(new Dot(4, 4, -4, 4));
@@ -53,21 +54,21 @@ public class Test {
 
 		Camera leftCam = new Camera(0, 0, 5, 0, multipointObjects);
 		Camera rightCam = new Camera(0, 0, 5, 0, multipointObjects);
-		TesseractFrame fMng = new TesseractFrame(leftCam, rightCam);
+		TesseractFrame frame = new TesseractFrame(leftCam, rightCam,
+				multipointObjects);
 
 		// cube.rotate(Math.PI / 50);
 
-		Date date = new Date();
-		long millis = date.getTime();
+		long millis = System.currentTimeMillis();
 
 		while (true) {
-			date = new Date();
-			long newMillis = date.getTime();
 
-			if (newMillis - millis > 25) {
-				cube.rotate(Math.PI * 2 / 250);
-				millis = newMillis;
-				fMng.repaint();
+			if (System.currentTimeMillis() - millis > 25) {
+				if (frame.getInfoPanel().autoturnEnabled) {
+					cube.rotate(Math.PI * 2 / 250);
+				}
+				millis = System.currentTimeMillis();
+				frame.repaint();
 			}
 
 			try {
