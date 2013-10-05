@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * of the Object<br>
  * <b>connectedVertices</b> contains the Vertices that are connected by a line<br>
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  * 
  */
 public abstract class MultipointObject extends Dot {

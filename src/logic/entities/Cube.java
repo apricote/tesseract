@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * A Cube (3 Dimensional), containing 8 Vertices <br />
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  * @see logic.entities.MultipointObject
  */
 public class Cube extends MultipointObject {

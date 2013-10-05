@@ -7,7 +7,7 @@ import exceptions.MatrixException;
 /**
  * A dot in a three dimensional World
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  */
 
 public class Dot {

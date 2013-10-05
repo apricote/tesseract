@@ -23,7 +23,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory;
 /**
  * The TesseractFrame just keeps track of the GUI
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  * 
  */
 public class TesseractFrame extends JFrame {

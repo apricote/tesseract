@@ -5,7 +5,7 @@ import exceptions.MatrixException;
 /**
  * A class for Matrices of doubles.
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  * 
  */
 public class Matrix {

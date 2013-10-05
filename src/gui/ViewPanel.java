@@ -10,7 +10,7 @@ import logic.entities.Camera;
 
 /**
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  * 
  */
 public class ViewPanel extends JPanel {

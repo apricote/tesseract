@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * The virtual camera for perspective projection.<br />
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  * 
  */
 public class Camera extends Dot {

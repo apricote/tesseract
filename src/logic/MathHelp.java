@@ -5,7 +5,7 @@ import exceptions.MatrixException;
 /**
  * Abstract class with some useful Math functions
  * 
- * @author Julian Tölle
+ * @author Julian Toelle
  * 
  */
 public abstract class MathHelp {
