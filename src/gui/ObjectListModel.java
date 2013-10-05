@@ -12,26 +12,12 @@ public class ObjectListModel extends AbstractTreeTableModel {
 	// ArrayList<MultipointObject> MultipointObjects;
 	int numberOfObjects;
 	Dot[] objects;
-	String[] columnNames = { "Item Index", "X", "Y", "Z", "W", "xAtm", "yAtm",
+	String[] columnNames = { "Item Name", "X", "Y", "Z", "W", "xAtm", "yAtm",
 			"zAtm", "wAtm", "Alpha", "Beta", "Gamma", "Delta", "Epsilon",
 			"Zeta" };
 
 	public ObjectListModel(DefaultMutableTreeNode root) {
 		super(root);
-		// this.MultipointObjects = MultipointObjects;
-
-		/*
-		 * numberOfObjects = 0; for (MultipointObject object :
-		 * MultipointObjects) { numberOfObjects++;
-		 * 
-		 * for (Dot dot : object.getDots()) { numberOfObjects++; } } objects =
-		 * new Dot[numberOfObjects];
-		 * 
-		 * int i = 0; for (MultipointObject object : MultipointObjects) {
-		 * objects[i] = object; i++; for (Dot dot : object.getDots()) {
-		 * objects[i] = dot; i++; } }
-		 */
-
 	}
 
 	@Override
@@ -43,24 +29,25 @@ public class ObjectListModel extends AbstractTreeTableModel {
 		return columnNames[col];
 	}
 
-	public boolean isCellEditable(int row, int col) {
-		if (col == 0) {
-			return false;
-		}
-		return true;
-	}
-
 	@Override
 	public Object getValueAt(Object obj, int index) {
+
 		Dot dot = null;
-		if (obj instanceof Dot) {
-			dot = (Dot) obj;
-		} else if (obj instanceof DefaultMutableTreeNode) {
-			DefaultMutableTreeNode dataNode = (DefaultMutableTreeNode) obj;
+		DefaultMutableTreeNode dataNode = null;
+
+		if (obj instanceof DefaultMutableTreeNode) {
+			dataNode = (DefaultMutableTreeNode) obj;
 			dot = (Dot) dataNode.getUserObject();
 		}
+
 		if (dot != null) {
 			switch (index) {
+			case 0:
+				if (dataNode.isLeaf()) {
+					return "Dot";
+				} else {
+					return "MO";
+				}
 			case 1:
 				return Math.round(dot.getX() * 100) / 100.0;
 			case 2:

@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import logic.entities.Camera;
@@ -18,6 +17,8 @@ import logic.entities.Dot;
 import logic.entities.MultipointObject;
 
 import org.jdesktop.swingx.JXTreeTable;
+import org.jdesktop.swingx.decorator.Highlighter;
+import org.jdesktop.swingx.decorator.HighlighterFactory;
 
 /**
  * The TesseractFrame just keeps track of the GUI
@@ -34,7 +35,7 @@ public class TesseractFrame extends JFrame {
 	private JTabbedPane tabbedPane;
 	private JPanel viewControlPanel;
 	private JScrollPane tableControlScrollPane;
-	private JTable table;
+	private JXTreeTable table;
 
 	/**
 	 * Initiates a TesseractFrame with 2 Cameras for 3 Dimensional viewing.
@@ -92,6 +93,12 @@ public class TesseractFrame extends JFrame {
 		table.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		table.setFillsViewportHeight(true);
 		table.getTableHeader().setReorderingAllowed(false);
+		table.expandAll();
+		table.getColumnModel().getColumn(0).setMinWidth(85);
+		Highlighter highligher = HighlighterFactory
+				.createSimpleStriping(HighlighterFactory.BEIGE);
+		table.setHighlighters(highligher);
+
 		tableControlScrollPane.setViewportView(table);
 
 		getContentPane().add(masterPanel);
