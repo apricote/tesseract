@@ -4,14 +4,17 @@ The [Tesseract] (http://en.wikipedia.org/wiki/Tesseract) project is, not like in
 
 ### Features
 - Rotation of the Tesseract
+- Rotation by pressing Keys
+- Overview of Objects in GUI
 
 ### Future Features
 - Perspective Projection ( #4 )
-- Rotation by pressing keys ( #9 )
 - Costum Objects ( #6 )
-- Overview of Objects in GUI ( #7 )
+- Savefiles
 
 ### History
 The Project Idea comes from the Math Club at my [school] (http://egwerther.de/). We talked about the 4th Dimension and wanted to know how it looks when it rotates. Now, after over a year later, the first Versions of the Project are ready.
 
 I would really appreciate it if someone of you wants to help me, just open Issues, write me Messages or Fork it.
+
+Status: [![Build Status](https://travis-ci.org/apricote/tesseract.png?branch=master)](https://travis-ci.org/apricote/tesseract)
