@@ -9,7 +9,7 @@ import logic.entities.Cube;
 import logic.entities.Dot;
 import logic.entities.MultipointObject;
 
-public class Test {
+public class Main {
 	public static void main(String[] args) {
 		boolean autoturnEnabled = true;
 

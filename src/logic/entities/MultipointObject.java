@@ -17,6 +17,7 @@ public abstract class MultipointObject extends Dot {
 	private ArrayList<Dot> dots = new ArrayList<Dot>();
 	private int[][] connectedVertices;
 	private int VERTICES;
+	public static String NAME;
 
 	public ArrayList<Dot> getDots() {
 		return this.dots;

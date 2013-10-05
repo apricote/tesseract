@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Cube extends MultipointObject {
 
 	static private int VERTICES = 8;
+	public static String NAME = "Cube";
 
 	/**
 	 * Initiates the cube with a set position, but without dots.

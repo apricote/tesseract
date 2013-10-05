@@ -82,7 +82,9 @@ public class ViewPanel extends JPanel {
 		super.paintComponent(g);
 		g.fillOval(getWidth() / 2 - 6, getHeight() - 75 - 6, 2 * 6, 2 * 6);
 
-		getCamera().draw(g, getHeight(), getWidth());
+		if (camera != null) {
+			getCamera().draw(g, getHeight(), getWidth());
+		}
 
 	}
 

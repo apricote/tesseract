@@ -1,14 +1,23 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import logic.entities.Camera;
+import logic.entities.Dot;
 import logic.entities.MultipointObject;
+
+import org.jdesktop.swingx.JXTreeTable;
 
 /**
  * The TesseractFrame just keeps track of the GUI
@@ -22,6 +31,10 @@ public class TesseractFrame extends JFrame {
 	private ViewPanel rightPanel;
 	private JPanel masterPanel;
 	private InfoPanel infoPanel;
+	private JTabbedPane tabbedPane;
+	private JPanel viewControlPanel;
+	private JScrollPane tableControlScrollPane;
+	private JTable table;
 
 	/**
 	 * Initiates a TesseractFrame with 2 Cameras for 3 Dimensional viewing.
@@ -35,22 +48,53 @@ public class TesseractFrame extends JFrame {
 	public TesseractFrame(Camera leftCam, Camera rightCam,
 			ArrayList<MultipointObject> objects) {
 
+		setMinimumSize(new Dimension(900, 500));
+		setPreferredSize(new Dimension(900, 600));
+		setTitle("Tesseract");
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(800, 600);
-		this.setLayout(new BorderLayout());
+		this.setSize(900, 600);
+		getContentPane().setLayout(new BorderLayout());
 
 		masterPanel = new JPanel();
+
+		masterPanel.setLayout(new GridLayout(0, 1));
+
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		masterPanel.add(tabbedPane);
+
+		viewControlPanel = new JPanel();
+		tabbedPane.addTab("View", null, viewControlPanel, null);
+		viewControlPanel.setLayout(new GridLayout(0, 3, 0, 0));
 		leftPanel = new ViewPanel(400, 600, leftCam);
+		viewControlPanel.add(leftPanel);
 		rightPanel = new ViewPanel(400, 600, rightCam);
+		viewControlPanel.add(rightPanel);
 		infoPanel = new InfoPanel(objects);
+		viewControlPanel.add(infoPanel);
 
-		masterPanel.setLayout(new GridLayout(1, 3));
+		tableControlScrollPane = new JScrollPane();
+		tabbedPane.addTab("Control", null, tableControlScrollPane, null);
 
-		masterPanel.add(leftPanel);
-		masterPanel.add(rightPanel);
-		masterPanel.add(infoPanel);
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(new Dot());
 
-		this.add(masterPanel);
+		for (MultipointObject object : objects) {
+			DefaultMutableTreeNode temp = new DefaultMutableTreeNode(
+					(Dot) object);
+			for (Dot dot : object.getDots()) {
+				temp.add(new DefaultMutableTreeNode(dot));
+			}
+			rootNode.add(temp);
+
+		}
+
+		table = new JXTreeTable(new ObjectListModel(rootNode));
+		table.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		table.setFillsViewportHeight(true);
+		table.getTableHeader().setReorderingAllowed(false);
+		tableControlScrollPane.setViewportView(table);
+
+		getContentPane().add(masterPanel);
 		this.setVisible(true);
 	}
 

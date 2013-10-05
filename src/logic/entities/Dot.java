@@ -21,6 +21,7 @@ public class Dot {
 	private double w;
 
 	private double[] angles = new double[6];
+	public static String NAME = "Dot";
 
 	public double getX() {
 		return x;
