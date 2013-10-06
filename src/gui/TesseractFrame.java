@@ -14,7 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import logic.entities.Camera;
 import logic.entities.Dot;
-import logic.entities.MultipointObject;
+import logic.entities.AbstractMultipointObject;
 
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.decorator.Highlighter;
@@ -47,7 +47,7 @@ public class TesseractFrame extends JFrame {
 	 */
 
 	public TesseractFrame(Camera leftCam, Camera rightCam,
-			ArrayList<MultipointObject> objects) {
+			ArrayList<AbstractMultipointObject> objects) {
 
 		setMinimumSize(new Dimension(900, 500));
 		setPreferredSize(new Dimension(900, 600));
@@ -79,7 +79,7 @@ public class TesseractFrame extends JFrame {
 
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(new Dot());
 
-		for (MultipointObject object : objects) {
+		for (AbstractMultipointObject object : objects) {
 			DefaultMutableTreeNode temp = new DefaultMutableTreeNode(
 					(Dot) object);
 			for (Dot dot : object.getDots()) {

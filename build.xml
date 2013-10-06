@@ -4,8 +4,8 @@
     </description>
 	<!-- set global properties for this build -->
 	<property name="src" location="src" />
-	<property name="build" location="build" />
-	<property name="test" location="test" />
+	<property name="build" location="bin" />
+	<property name="test" location="jar" />
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -17,17 +17,23 @@
 	<target name="compile" depends="init" description="compile the source ">
 
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac srcdir="${src}" destdir="${build}">
+		<javac srcdir="${src}" destdir="${build}" includeantruntime="false">
 			<classpath path="swingx.jar" />
 		</javac>
 	</target>
 
 	<target name="test" depends="compile" description="generate the distribution">
 		<!-- Create the distribution directory -->
-		<mkdir dir="${test}/lib" />
+		<mkdir dir="${test}" />
 
 		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-		<jar jarfile="${test}/lib/tesseract-${DSTAMP}.jar" basedir="${build}" />
+		<jar jarfile="${test}/nightly/tesseract-${DSTAMP}.jar" basedir="${build}" filesetmanifest="mergewithoutmain">
+			<manifest>
+            	<attribute name="Main-Class" value="logic.Main"/>
+            	<attribute name="Class-Path" value="."/>
+            </manifest>
+			<zipfileset excludes="META-INF/*.SF" src="swingx.jar"/>
+		</jar>
 	</target>
 
 	<target name="clean" description="clean up">

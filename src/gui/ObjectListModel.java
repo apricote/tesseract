@@ -2,14 +2,14 @@ package gui;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import logic.entities.AbstractMultipointObject;
 import logic.entities.Dot;
-import logic.entities.MultipointObject;
 
 import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 
 public class ObjectListModel extends AbstractTreeTableModel {
 
-	// ArrayList<MultipointObject> MultipointObjects;
+	// ArrayList<AbstractMultipointObject> MultipointObjects;
 	int numberOfObjects;
 	Dot[] objects;
 	String[] columnNames = { "Item Name", "X", "Y", "Z", "W", "xAtm", "yAtm",
@@ -101,7 +101,7 @@ public class ObjectListModel extends AbstractTreeTableModel {
 
 	@Override
 	public int getIndexOfChild(Object parentObj, Object childObj) {
-		MultipointObject moObj = (MultipointObject) parentObj;
+		AbstractMultipointObject moObj = (AbstractMultipointObject) parentObj;
 		Dot dObj = (Dot) childObj;
 		return moObj.getDots().indexOf(dObj);
 	}

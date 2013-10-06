@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.entities.Dot;
-import logic.entities.MultipointObject;
+import logic.entities.AbstractMultipointObject;
 
 public class InfoPanel extends JPanel {
 
@@ -27,9 +27,9 @@ public class InfoPanel extends JPanel {
 	private JButton[] minusButton = new JButton[6];
 	private JCheckBox autoturn;
 	public boolean autoturnEnabled = true;
-	private ArrayList<MultipointObject> objects;
+	private ArrayList<AbstractMultipointObject> objects;
 
-	public InfoPanel(ArrayList<MultipointObject> objects) {
+	public InfoPanel(ArrayList<AbstractMultipointObject> objects) {
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -102,7 +102,7 @@ public class InfoPanel extends JPanel {
 	}
 
 	public void updateAngles() {
-		for (MultipointObject object : objects) {
+		for (AbstractMultipointObject object : objects) {
 			for (Dot dot : object.getDots()) {
 				this.angles = dot.getAngles();
 			}
@@ -113,10 +113,10 @@ public class InfoPanel extends JPanel {
 
 		private boolean operation; // + -> true
 		private int axis;
-		private ArrayList<MultipointObject> objects;
+		private ArrayList<AbstractMultipointObject> objects;
 
 		public ButtonListener(boolean operation, int axis,
-				ArrayList<MultipointObject> objects) {
+				ArrayList<AbstractMultipointObject> objects) {
 			super();
 			this.operation = operation;
 			this.axis = axis;
@@ -125,7 +125,7 @@ public class InfoPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			for (MultipointObject object : objects) {
+			for (AbstractMultipointObject object : objects) {
 				if (operation) {
 					object.rotate(Math.PI / 50, axis);
 				} else {

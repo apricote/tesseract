@@ -14,7 +14,7 @@ public class Camera extends Dot {
 	private double y;
 	private double z;
 	private double w;
-	private ArrayList<MultipointObject> multipointObjects;
+	private ArrayList<AbstractMultipointObject> abstractMultipointObjects;
 
 	public void setX(double x) {
 		this.x = x;
@@ -32,13 +32,13 @@ public class Camera extends Dot {
 		this.w = w;
 	}
 
-	public ArrayList<MultipointObject> getMultipointObjects() {
-		return multipointObjects;
+	public ArrayList<AbstractMultipointObject> getMultipointObjects() {
+		return abstractMultipointObjects;
 	}
 
 	public void setMultipointObjects(
-			ArrayList<MultipointObject> multipointObjects) {
-		this.multipointObjects = multipointObjects;
+			ArrayList<AbstractMultipointObject> abstractMultipointObjects) {
+		this.abstractMultipointObjects = abstractMultipointObjects;
 	}
 
 	/**
@@ -52,16 +52,16 @@ public class Camera extends Dot {
 	 *            The z position of the Camera
 	 * @param The
 	 *            w position of the Camera
-	 * @param multipointObjects
+	 * @param abstractMultipointObjects
 	 *            The list of Objects to be drawn
 	 */
 	public Camera(double x, double y, double z, double w,
-			ArrayList<MultipointObject> multipointObjects) {
+			ArrayList<AbstractMultipointObject> abstractMultipointObjects) {
 		setX(x);
 		setY(y);
 		setZ(z);
 		setW(w);
-		setMultipointObjects(multipointObjects);
+		setMultipointObjects(abstractMultipointObjects);
 	}
 
 	/**
@@ -77,8 +77,8 @@ public class Camera extends Dot {
 	 */
 	public void draw(Graphics g, int height, int width) {
 
-		for (MultipointObject multipointObject : getMultipointObjects()) {
-			ArrayList<Dot> punkte = multipointObject.getDots();
+		for (AbstractMultipointObject abstractMultipointObject : getMultipointObjects()) {
+			ArrayList<Dot> punkte = abstractMultipointObject.getDots();
 
 			for (Dot dot : punkte) {
 				int tempX = dot.getXInt(10);
@@ -90,7 +90,7 @@ public class Camera extends Dot {
 				g.fillOval(tempX, tempY, 5, 5);
 			}
 
-			int[][] connectedVertices = multipointObject.getConnectedVertices();
+			int[][] connectedVertices = abstractMultipointObject.getConnectedVertices();
 
 			for (int i = 0; i < connectedVertices.length; i++) {
 				int x1 = width / 2
