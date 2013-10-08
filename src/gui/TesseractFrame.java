@@ -12,9 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import logic.entities.AbstractMultipointObject;
 import logic.entities.Camera;
 import logic.entities.Dot;
-import logic.entities.AbstractMultipointObject;
 
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.decorator.Highlighter;
@@ -94,9 +94,9 @@ public class TesseractFrame extends JFrame {
 		table.setFillsViewportHeight(true);
 		table.getTableHeader().setReorderingAllowed(false);
 		table.expandAll();
-		table.getColumnModel().getColumn(0).setMinWidth(85);
+		table.getColumnModel().getColumn(0).setMinWidth(120);
 		Highlighter highligher = HighlighterFactory
-				.createSimpleStriping(HighlighterFactory.BEIGE);
+				.createSimpleStriping(HighlighterFactory.GENERIC_GRAY);
 		table.setHighlighters(highligher);
 
 		tableControlScrollPane.setViewportView(table);

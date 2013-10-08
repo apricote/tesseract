@@ -38,15 +38,18 @@ public class ObjectListModel extends AbstractTreeTableModel {
 		if (obj instanceof DefaultMutableTreeNode) {
 			dataNode = (DefaultMutableTreeNode) obj;
 			dot = (Dot) dataNode.getUserObject();
+
 		}
 
 		if (dot != null) {
 			switch (index) {
 			case 0:
 				if (dataNode.isLeaf()) {
-					return "Dot";
+					return dot.NAME;
 				} else {
-					return "MO";
+					AbstractMultipointObject amo = (AbstractMultipointObject) dataNode
+							.getUserObject();
+					return amo.NAME;
 				}
 			case 1:
 				return Math.round(dot.getX() * 100) / 100.0;
