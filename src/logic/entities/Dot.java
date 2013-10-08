@@ -126,7 +126,8 @@ public class Dot {
 	public void setAngle(int angle, double rad) {
 		this.angles[angle] = rad % (Math.PI * 2.0);
 		if (this.angles[angle] < 0) {
-			this.angles[angle] = (Math.PI * 2) - this.angles[angle];
+			this.angles[angle] += Math.PI * 2;
+			this.setAngle(angle, this.getAngles()[angle]);
 		}
 	}
 
