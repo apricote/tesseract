@@ -17,37 +17,20 @@ import logic.entities.Dot;
 import logic.entities.MultipointObject;
 
 public class Main {
+	private static ArrayList<AbstractMultipointObject> abstractMultipointObjects;
+	private static boolean autoturnEnabled = true;
+	private static TesseractFrame frame;
+	
 	public static void main(String[] args) {
-		boolean autoturnEnabled = true;
 
-		ArrayList<AbstractMultipointObject> abstractMultipointObjects = readObjects();
+		abstractMultipointObjects = readObjects();
 
 		Camera leftCam = new Camera(0, 0, 5, 0, abstractMultipointObjects);
 		Camera rightCam = new Camera(0, 0, 5, 0, abstractMultipointObjects);
-		TesseractFrame frame = new TesseractFrame(leftCam, rightCam,
+		frame = new TesseractFrame(leftCam, rightCam,
 				abstractMultipointObjects);
 
-		long millis = System.currentTimeMillis();
-
-		while (true) {
-
-			if (System.currentTimeMillis() - millis > 25) {
-				if (frame.getInfoPanel().autoturnEnabled) {
-					for (AbstractMultipointObject object : abstractMultipointObjects) {
-						object.rotate(Math.PI * 2 / 250);
-					}
-				}
-				millis = System.currentTimeMillis();
-				frame.repaint();
-			}
-
-			try {
-				Thread.sleep(5, 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-		}
+		mainLoop();
 
 	}
 
@@ -153,5 +136,28 @@ public class Main {
 			e1.printStackTrace();
 		}
 
+	}
+	
+	public static void mainLoop(){
+		long millis = System.currentTimeMillis();
+		while (true) {
+
+			if (System.currentTimeMillis() - millis > 25) {
+				if (frame.getInfoPanel().autoturnEnabled) {
+					for (AbstractMultipointObject object : abstractMultipointObjects) {
+						object.rotate(Math.PI * 2 / 250);
+					}
+				}
+				millis = System.currentTimeMillis();
+				frame.repaint();
+			}
+
+			try {
+				Thread.sleep(5, 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 }
