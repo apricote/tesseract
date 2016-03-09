@@ -50,8 +50,8 @@ public class Camera extends Dot {
 	 *            The y position of the Camera
 	 * @param z
 	 *            The z position of the Camera
-	 * @param The
-	 *            w position of the Camera
+	 * @param w
+	 *            The w position of the Camera
 	 * @param abstractMultipointObjects
 	 *            The list of Objects to be drawn
 	 */
